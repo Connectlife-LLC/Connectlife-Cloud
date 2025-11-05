@@ -8,18 +8,19 @@ with open("README.md", "r", encoding="utf-8") as fh:
 # Read requirements from pyproject.toml instead
 requirements = [
     "aiohttp>=3.8.0",
-    "aiofiles>=0.8.0",
+    "pytz>=2021.1",
 ]
 
 setup(
     name="connectlife-cloud",
-    version="0.3.0",
+    version="0.3.1",
     author="ConnectLife LLC",
     author_email="support@connectlife.com",
     description="ConnectLife Cloud API client library for Home Assistant integrations",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/Connectlife-LLC/connectlife-cloud",
+    license="MIT",
     packages=find_packages(),
     classifiers=[
         "Development Status :: 4 - Beta",

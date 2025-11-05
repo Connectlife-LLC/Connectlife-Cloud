@@ -63,6 +63,24 @@ The main client class for interacting with the ConnectLife Cloud API.
 - `query_static_data(puid, access_token)`: Query static device data
 - `get_hour_power(date, puid, access_token)`: Get hourly power consumption
 - `get_self_check(no_record, puid, access_token)`: Get device self-check info
+- `get_devices_with_parsers(access_token)`: Get devices with their parsers
+- `parse_device_status(device_id, status)`: Parse device status using appropriate parser
+
+### Mode Converter
+
+Utilities for converting device mode descriptions (Chinese or English) to standard Home Assistant strings.
+
+**HVAC Mode Functions:**
+- `convert_mode_to_ha_string(mode_description)`: Convert HVAC mode description to HA standard string
+- `get_ha_mode_string(value_map, device_value)`: Get HA HVAC mode string from device value map
+- `find_device_value_for_ha_mode(value_map, ha_mode_string)`: Find device value for given HA mode (reverse lookup)
+
+**Fan Mode Functions:**
+- `convert_fan_mode_to_ha_string(fan_description)`: Convert fan mode description to HA standard string
+- `get_ha_fan_mode_string(value_map, device_value)`: Get HA fan mode string from device value map
+- `find_device_value_for_ha_fan_mode(value_map, ha_fan_mode_string)`: Find device value for given HA fan mode (reverse lookup)
+
+The library handles bilingual support internally, converting Chinese descriptions (自动, 制冷, 制热, etc.) to standard English strings that can be directly used with Home Assistant enums like `HVACMode("auto")`.
 
 ## License
 
