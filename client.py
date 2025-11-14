@@ -11,7 +11,7 @@ import re
 import time
 import uuid
 from base64 import b64encode
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Any, Callable, Dict, List, Optional
 
 import aiohttp
@@ -30,7 +30,7 @@ from .exceptions import (
     ConnectLifeCloudConnectionError,
     ConnectLifeCloudError,
 )
-from .models import DeviceInfo, DeviceStatus
+from .models import DeviceInfo, DeviceStatus, NotificationInfo
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -283,6 +283,38 @@ class ConnectLifeCloudClient:
         except Exception as err:
             raise ConnectLifeCloudError(f"Failed to control device: {err}")
 
+    async def register_phone_device(self, phone_code: str, access_token: str) -> bool:
+        """Register phone code with the ConnectLife notification service."""
+        response = await self._api_request(
+            "POST",
+            "/msg/registerPhoneDevice",
+            data={"phoneCode": phone_code},
+            access_token=access_token,
+        )
+        success = response.get("resultCode") == 0
+        _LOGGER.debug("Phone code registration %s", "successful" if success else "failed")
+        return success
+
+    async def get_notification_info(
+        self, phone_code: str, access_token: str
+    ) -> Optional[NotificationInfo]:
+        """Retrieve WebSocket notification configuration."""
+        response = await self._api_request(
+            "GET",
+            "/msg/get_msg_and_channels",
+            data={
+                "pageNo": "1",
+                "pageSize": "10",
+                "phoneCode": phone_code,
+                "queryType": 2,
+            },
+            access_token=access_token,
+        )
+        status = response.get("status")
+        if not status:
+            return None
+        return NotificationInfo.from_json(status)
+
     async def get_property_list(
         self, device_type_code: str, device_feature_code: str, access_token: str
     ) -> Dict[str, Any]:
@@ -373,6 +405,40 @@ class ConnectLifeCloudClient:
 
         except Exception as err:
             raise ConnectLifeCloudError(f"Failed to get self check: {err}")
+
+    async def update_power_consumption(
+        self, device: DeviceInfo, access_token: str
+    ) -> None:
+        """Update cached power consumption for a device."""
+        current_date = datetime.now().date().isoformat()
+        power_response = await self.get_hour_power(current_date, device.puid, access_token)
+        power_data = power_response.get("status", {})
+
+        previous_hour = (datetime.now() - timedelta(hours=1)).hour
+        value = power_data.get(str(previous_hour))
+        if value is not None:
+            device.status["f_power_consumption"] = value
+            _LOGGER.debug(
+                "Updated power consumption for device %s: %s",
+                device.device_id,
+                value,
+            )
+
+    async def update_self_check_data(
+        self, device: DeviceInfo, access_token: str
+    ) -> None:
+        """Update cached self-check data for a device."""
+        data = await self.get_self_check("1", device.puid, access_token)
+        failed_data = data.get("status", {}).get("selfCheckFailedList")
+
+        if failed_data:
+            failed_list = [item.get("statusKey") for item in failed_data]
+            device.failed_data = failed_list
+            _LOGGER.debug(
+                "Updated self-check data for device %s: %s failures found",
+                device.device_id,
+                len(failed_list),
+            )
 
     def register_status_callback(
         self, device_id: str, callback: Callable[[Dict[str, Any]], None]

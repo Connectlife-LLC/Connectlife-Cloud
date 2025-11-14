@@ -15,8 +15,9 @@ from .mode_converter import (
     get_ha_fan_mode_string,
     get_ha_mode_string,
 )
-from .models import DeviceInfo, DeviceStatus
+from .models import DeviceInfo, DeviceStatus, NotificationInfo, PushChannel
 from .translations import TranslationManager
+from .websocket import ConnectLifeWebSocket
 
 # Import device classes
 from .devices import get_device_parser
@@ -27,7 +28,7 @@ from .devices.hum_007 import Humidity007Parser
 from .devices.split_ac_009_199 import SplitAC009199Parser
 from .devices.window_ac_008_399 import WindowAC008399Parser
 
-__version__ = "0.3.1"
+__version__ = "0.3.2"
 __all__ = [
     "ConnectLifeCloudClient",
     "ConnectLifeCloudError",
@@ -35,6 +36,8 @@ __all__ = [
     "ConnectLifeCloudConnectionError",
     "DeviceInfo",
     "DeviceStatus",
+    "NotificationInfo",
+    "PushChannel",
     "TranslationManager",
     "DeviceParserFactory",
     "convert_mode_to_ha_string",
@@ -50,4 +53,5 @@ __all__ = [
     "Split006299Parser",
     "Humidity007Parser",
     "SplitWater035699Parser",
+    "ConnectLifeWebSocket",
 ]

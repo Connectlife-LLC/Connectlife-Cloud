@@ -10,6 +10,48 @@ _LOGGER = logging.getLogger(__name__)
 
 
 @dataclass
+class PushChannel:
+    """Push channel information."""
+
+    push_channel: str
+
+    @classmethod
+    def from_json(cls, data: Dict[str, Any]) -> PushChannel:
+        """Create PushChannel from API data."""
+        return cls(push_channel=data.get("pushChannel", ""))
+
+
+@dataclass
+class NotificationInfo:
+    """Notification server information."""
+
+    push_channels: List[PushChannel]
+    push_server_ip: str
+    push_server_port: str
+    push_server_ssl_port: str
+    hb_interval: int
+    hb_fail_times: int
+    has_msg_unread: int
+    unread_msg_num: int
+
+    @classmethod
+    def from_json(cls, data: Dict[str, Any]) -> NotificationInfo:
+        """Create NotificationInfo from API data."""
+        return cls(
+            push_channels=[
+                PushChannel.from_json(channel) for channel in data.get("pushChannels", [])
+            ],
+            push_server_ip=data.get("pushServerIp", ""),
+            push_server_port=data.get("pushServerPort", ""),
+            push_server_ssl_port=data.get("pushServerSslPort", ""),
+            hb_interval=data.get("hbInterval", 30),
+            hb_fail_times=data.get("hbFailTimes", 3),
+            has_msg_unread=data.get("hasMsgUnread", 0),
+            unread_msg_num=data.get("unreadMsgNum", 0),
+        )
+
+
+@dataclass
 class DeviceInfo:
     """Device information model."""
 

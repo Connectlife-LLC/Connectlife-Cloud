@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "connectlife-cloud"
-version = "0.3.1"
+version = "0.3.2"
 description = "ConnectLife Cloud API client library for Home Assistant integrations"
 readme = "README.md"
 requires-python = ">=3.8"
