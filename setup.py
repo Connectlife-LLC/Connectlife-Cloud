@@ -13,7 +13,7 @@ requirements = [
 
 setup(
     name="connectlife-cloud",
-    version="0.3.2",
+    version="0.3.3",
     author="ConnectLife LLC",
     author_email="support@connectlife.com",
     description="ConnectLife Cloud API client library for Home Assistant integrations",
@@ -21,7 +21,8 @@ setup(
     long_description_content_type="text/markdown",
     url="https://github.com/Connectlife-LLC/connectlife-cloud",
     license="MIT",
-    packages=find_packages(),
+    packages=["connectlife_cloud", "connectlife_cloud.devices"],
+    package_dir={"connectlife_cloud": ".", "connectlife_cloud.devices": "devices"},
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
