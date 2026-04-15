@@ -34,14 +34,14 @@ from .models import DeviceInfo, DeviceStatus, NotificationInfo
 
 _LOGGER = logging.getLogger(__name__)
 
+client_id = "9793620883275788"
+client_secret = "7h1m3gZVlILyBvIFBNmzXwoFYLhkGqG9NQd2jBzuZCqJKCTyCtYwQtXi4tVBjg9B"
 
 class ConnectLifeCloudClient:
     """ConnectLife Cloud API client."""
 
     def __init__(
         self,
-        client_id: str,
-        client_secret: str,
         base_url: str = "https://juapi-3rd.hijuconn.com",
         oauth_url: str = "https://oauth.hijuconn.com",
         session: Optional[aiohttp.ClientSession] = None,
@@ -99,7 +99,12 @@ class ConnectLifeCloudClient:
     def _calculate_path(self, url: str) -> str:
         """Extract path from URL."""
         return re.sub(r"^https://[^/]*", "", url)
-
+    def client_id(self) -> str:
+        """Get client ID."""
+        return self.client_id
+    def client_secret(self) -> str:
+        """Get client secret."""
+        return self.client_secret
     def _calculate_encrypt(
         self, secret_key: str, method: str, path: str, gmt_date: str, header: str
     ) -> str:
