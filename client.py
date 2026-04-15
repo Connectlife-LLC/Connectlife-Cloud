@@ -99,10 +99,10 @@ class ConnectLifeCloudClient:
     def _calculate_path(self, url: str) -> str:
         """Extract path from URL."""
         return re.sub(r"^https://[^/]*", "", url)
-    def client_id(self) -> str:
+    def get_client_id(self) -> str:
         """Get client ID."""
         return self.client_id
-    def client_secret(self) -> str:
+    def get_client_secret(self) -> str:
         """Get client secret."""
         return self.client_secret
     def _calculate_encrypt(
