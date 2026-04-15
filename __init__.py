@@ -27,8 +27,9 @@ from .devices.bean_006_299 import Split006299Parser
 from .devices.hum_007 import Humidity007Parser
 from .devices.split_ac_009_199 import SplitAC009199Parser
 from .devices.window_ac_008_399 import WindowAC008399Parser
+from .constants import CLIENT_ID, CLIENT_SECRET
 
-__version__ = "0.3.5"
+__version__ = "0.3.6"
 __all__ = [
     "CLIENT_ID",
     "CLIENT_SECRET",
