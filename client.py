@@ -31,19 +31,19 @@ from .exceptions import (
     ConnectLifeCloudError,
 )
 from .models import DeviceInfo, DeviceStatus, NotificationInfo
+from .constants import CLIENT_ID, CLIENT_SECRET, BASE_URL, OAUTH_URL
 
 _LOGGER = logging.getLogger(__name__)
-
-client_id = "9793620883275788"
-client_secret = "7h1m3gZVlILyBvIFBNmzXwoFYLhkGqG9NQd2jBzuZCqJKCTyCtYwQtXi4tVBjg9B"
 
 class ConnectLifeCloudClient:
     """ConnectLife Cloud API client."""
 
     def __init__(
         self,
-        base_url: str = "https://juapi-3rd.hijuconn.com",
-        oauth_url: str = "https://oauth.hijuconn.com",
+        client_id: str = CLIENT_ID,
+        client_secret: str = CLIENT_SECRET,
+        base_url: str = BASE_URL,
+        oauth_url: str = OAUTH_URL,
         session: Optional[aiohttp.ClientSession] = None,
     ) -> None:
         """Initialize the client."""
@@ -99,12 +99,7 @@ class ConnectLifeCloudClient:
     def _calculate_path(self, url: str) -> str:
         """Extract path from URL."""
         return re.sub(r"^https://[^/]*", "", url)
-    def get_client_id(self) -> str:
-        """Get client ID."""
-        return self.client_id
-    def get_client_secret(self) -> str:
-        """Get client secret."""
-        return self.client_secret
+        
     def _calculate_encrypt(
         self, secret_key: str, method: str, path: str, gmt_date: str, header: str
     ) -> str:

@@ -28,8 +28,10 @@ from .devices.hum_007 import Humidity007Parser
 from .devices.split_ac_009_199 import SplitAC009199Parser
 from .devices.window_ac_008_399 import WindowAC008399Parser
 
-__version__ = "0.3.3"
+__version__ = "0.3.5"
 __all__ = [
+    "CLIENT_ID",
+    "CLIENT_SECRET",
     "ConnectLifeCloudClient",
     "ConnectLifeCloudError",
     "ConnectLifeCloudAuthError",
