@@ -27,12 +27,22 @@ from .devices.bean_006_299 import Split006299Parser
 from .devices.hum_007 import Humidity007Parser
 from .devices.split_ac_009_199 import SplitAC009199Parser
 from .devices.window_ac_008_399 import WindowAC008399Parser
-from .constants import CLIENT_ID, CLIENT_SECRET
+from .constants import CLIENT_ID, CLIENT_SECRET, OAUTH2_AUTHORIZE, OAUTH2_TOKEN, WEBSOCKET_URL, API_BASE_URL, API_DEVICE_LIST, API_GET_PROPERTY_LTST, API_QUERY_STATIC_DATA, API_DEVICE_CONTROL, API_SELF_CHECK, API_GET_HOUR_POWER
 
-__version__ = "0.3.6"
+__version__ = "0.3.8"
 __all__ = [
     "CLIENT_ID",
     "CLIENT_SECRET",
+    "OAUTH2_AUTHORIZE",
+    "OAUTH2_TOKEN",
+    "WEBSOCKET_URL",
+    "API_BASE_URL",
+    "API_DEVICE_LIST",
+    "API_GET_PROPERTY_LTST",
+    "API_QUERY_STATIC_DATA",
+    "API_DEVICE_CONTROL",
+    "API_SELF_CHECK",
+    "API_GET_HOUR_POWER",
     "ConnectLifeCloudClient",
     "ConnectLifeCloudError",
     "ConnectLifeCloudAuthError",

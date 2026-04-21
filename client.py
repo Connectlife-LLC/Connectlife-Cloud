@@ -31,7 +31,7 @@ from .exceptions import (
     ConnectLifeCloudError,
 )
 from .models import DeviceInfo, DeviceStatus, NotificationInfo
-from .constants import CLIENT_ID, CLIENT_SECRET, BASE_URL, OAUTH_URL
+from .constants import CLIENT_ID, CLIENT_SECRET, API_BASE_URL, OAUTH2_AUTHORIZE
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -42,8 +42,8 @@ class ConnectLifeCloudClient:
         self,
         client_id: str = CLIENT_ID,
         client_secret: str = CLIENT_SECRET,
-        base_url: str = BASE_URL,
-        oauth_url: str = OAUTH_URL,
+        base_url: str = API_BASE_URL,
+        oauth_url: str = OAUTH2_AUTHORIZE,
         session: Optional[aiohttp.ClientSession] = None,
     ) -> None:
         """Initialize the client."""
