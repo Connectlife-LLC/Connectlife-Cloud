@@ -13,7 +13,7 @@ requirements = [
 
 setup(
     name="connectlife-cloud",
-    version="0.3.8",
+    version="0.3.16",
        author="ConnectLife LLC",
     author_email="support@connectlife.com",
     description="ConnectLife Cloud API client library for Home Assistant integrations",

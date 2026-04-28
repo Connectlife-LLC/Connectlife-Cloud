@@ -1,5 +1,5 @@
 """Constants for ConnectLife Cloud API client."""
-
+from typing import NamedTuple
 # API credentials
 CLIENT_ID = "9793620883275788"
 CLIENT_SECRET = "7h1m3gZVlILyBvIFBNmzXwoFYLhkGqG9NQd2jBzuZCqJKCTyCtYwQtXi4tVBjg9B"
@@ -20,3 +20,21 @@ API_QUERY_STATIC_DATA = (
 API_DEVICE_CONTROL = "/device/pu/property/set"
 API_SELF_CHECK = "/basic/self_check/info"  # Get fault information
 API_GET_HOUR_POWER = "/clife-svc/pu/get_hour_power"  # Get power consumption information
+
+# Device Types
+class DeviceType(NamedTuple):
+    """Device type definition."""
+
+    type_code: str
+    feature_code: str
+    description: str
+
+
+# Known device types
+DEVICE_TYPES = {
+    # Split AC
+    ("009", "199"): DeviceType("009", "199", "Split Air Conditioner"),
+    # Window AC
+    ("008", "399"): DeviceType("008", "399", "Window Air Conditioner"),
+    # Add more device types here as needed
+}

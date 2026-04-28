@@ -16,14 +16,14 @@ class Split006299Parser(BaseDeviceParser):
 
     def remove_attribute(self, key: str) -> None:
         """移除指定的属性"""
-        if key in self._attributes:
-            del self._attributes[key]
+        attributes = self.attributes
+        if key in attributes:
+            del attributes[key]
 
 
     @property
     def attributes(self) -> Dict[str, DeviceAttribute]:
-        if not hasattr(self, '_attributes'):
-            self._attributes = {
+        return {
                 "t_work_mode": DeviceAttribute(
                     key="t_work_mode",
                     name="设定模式",
@@ -134,8 +134,3 @@ class Split006299Parser(BaseDeviceParser):
                     read_write="RW"
                 )
             }
-        return self._attributes
-
-    @attributes.setter
-    def attributes(self, value: Dict[str, DeviceAttribute]):
-        self._attributes = value
